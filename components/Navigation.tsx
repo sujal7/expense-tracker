@@ -6,12 +6,14 @@ interface NavigationProps {
   activeView: ActiveView;
   onNavigate: (view: ActiveView) => void;
   expenseCount: number;
+  onOpenHub: () => void;
 }
 
 export default function Navigation({
   activeView,
   onNavigate,
   expenseCount,
+  onOpenHub,
 }: NavigationProps) {
   const navItems: { view: ActiveView; label: string }[] = [
     { view: "dashboard", label: "Overview" },
@@ -105,20 +107,41 @@ export default function Navigation({
             })}
           </nav>
 
-          {/* Record count badge */}
-          <div
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              color: "var(--text-muted)",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "var(--green)" }}
-            />
-            {expenseCount} records
+          {/* Right: Export Hub + record count */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onOpenHub}
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200"
+              style={{
+                background: "rgba(240,165,0,0.07)",
+                border: "1px solid rgba(240,165,0,0.18)",
+                color: "rgba(240,165,0,0.85)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(240,165,0,0.13)";
+                e.currentTarget.style.color = "var(--accent)";
+                e.currentTarget.style.borderColor = "rgba(240,165,0,0.32)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(240,165,0,0.07)";
+                e.currentTarget.style.color = "rgba(240,165,0,0.85)";
+                e.currentTarget.style.borderColor = "rgba(240,165,0,0.18)";
+              }}
+            >
+              <span>⬡</span>
+              Export Hub
+            </button>
+            <div
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono"
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                color: "var(--text-muted)",
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--green)" }} />
+              {expenseCount} records
+            </div>
           </div>
         </div>
       </div>

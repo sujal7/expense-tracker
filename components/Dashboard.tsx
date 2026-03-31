@@ -13,6 +13,7 @@ import {
 } from "@/lib/storage";
 import { getSeedExpenses } from "@/lib/utils";
 import Navigation from "./Navigation";
+import ExportHub from "./ExportHub";
 import SummaryCards from "./SummaryCards";
 import SpendingChart from "./SpendingChart";
 import CategoryBreakdown from "./CategoryBreakdown";
@@ -23,6 +24,7 @@ import RecentExpenses from "./RecentExpenses";
 export default function Dashboard() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [activeView, setActiveView] = useState<ActiveView>("dashboard");
+  const [isHubOpen, setIsHubOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   const [mounted, setMounted] = useState(false);
   const [notification, setNotification] = useState<{
@@ -130,6 +132,13 @@ export default function Dashboard() {
         activeView={activeView}
         onNavigate={handleNavigation}
         expenseCount={expenses.length}
+        onOpenHub={() => setIsHubOpen(true)}
+      />
+
+      <ExportHub
+        expenses={expenses}
+        isOpen={isHubOpen}
+        onClose={() => setIsHubOpen(false)}
       />
 
       {/* Notification Toast */}
