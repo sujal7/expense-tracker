@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #05070f;
+  --bg-card: #080c18;
+  --bg-card-hover: #0c1120;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(240, 165, 0, 0.25);
+  --text: #eef0f7;
+  --text-muted: #6a7290;
+  --text-faint: #3d4560;
+  --accent: #f0a500;
+  --accent-dim: rgba(240, 165, 0, 0.08);
+  --green: #00c896;
+  --red: #e84040;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Outfit", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(240, 165, 0, 0.2);
+  color: #f0a500;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 1.5px solid rgba(240, 165, 0, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Input base */
+input,
+select,
+textarea {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-family: "Outfit", system-ui, sans-serif;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(240, 165, 0, 0.4);
+  box-shadow: 0 0 0 2px rgba(240, 165, 0, 0.08);
+}
+
+/* Number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+  cursor: pointer;
+}
+
+/* Dropdown option dark theme fix */
+select option {
+  background-color: #0e1117;
+  color: #eef0f7;
+}
+
+select option:checked,
+select option:hover {
+  background-color: #1b2030;
+  color: #eef0f7;
+}
+
+/* Transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Noise grain overlay */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Category badge colors */
+.cat-food {
+  color: #f0a500;
+  background: rgba(240, 165, 0, 0.1);
+}
+.cat-transportation {
+  color: #4b9ef0;
+  background: rgba(75, 158, 240, 0.1);
+}
+.cat-entertainment {
+  color: #a060f0;
+  background: rgba(160, 96, 240, 0.1);
+}
+.cat-shopping {
+  color: #f060a0;
+  background: rgba(240, 96, 160, 0.1);
+}
+.cat-bills {
+  color: #f04040;
+  background: rgba(240, 64, 64, 0.1);
+}
+.cat-other {
+  color: #60a0b0;
+  background: rgba(96, 160, 176, 0.1);
+}
+
+/* Animated number */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count {
+  animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glow effects */
+.glow-amber {
+  box-shadow: 0 0 0 1px rgba(240, 165, 0, 0.2), 0 4px 24px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(240, 165, 0, 0.08);
+}
+
+/* Grid background */
+.bg-grid {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Staggered animation delays */
+.delay-0 { animation-delay: 0ms; }
+.delay-1 { animation-delay: 60ms; }
+.delay-2 { animation-delay: 120ms; }
+.delay-3 { animation-delay: 180ms; }
+.delay-4 { animation-delay: 240ms; }
+.delay-5 { animation-delay: 300ms; }
