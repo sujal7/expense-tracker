@@ -2,6 +2,15 @@ import { Expense } from "./types";
 
 const STORAGE_KEY = "obsidian-ledger-expenses";
 
+const VALID_CATEGORIES = new Set([
+  "Food",
+  "Transportation",
+  "Entertainment",
+  "Shopping",
+  "Bills",
+  "Other",
+]);
+
 function isValidExpense(value: unknown): value is Expense {
   if (!value || typeof value !== "object") return false;
   const e = value as Record<string, unknown>;
@@ -11,6 +20,7 @@ function isValidExpense(value: unknown): value is Expense {
     typeof e.amount === "number" &&
     !isNaN(e.amount) &&
     typeof e.category === "string" &&
+    VALID_CATEGORIES.has(e.category) &&
     typeof e.description === "string" &&
     typeof e.createdAt === "string"
   );

@@ -62,7 +62,18 @@ export function getWeeklyTotal(expenses: Expense[]): number {
 
 export function getDailyAverage(expenses: Expense[]): number {
   if (expenses.length === 0) return 0;
-  const dates = expenses.map((e) => parseISO(e.date)).sort((a, b) => a.getTime() - b.getTime());
+  const dates = expenses
+    .map((e) => {
+      try {
+        const d = parseISO(e.date);
+        return isNaN(d.getTime()) ? null : d;
+      } catch {
+        return null;
+      }
+    })
+    .filter((d): d is Date => d !== null)
+    .sort((a, b) => a.getTime() - b.getTime());
+  if (dates.length === 0) return 0;
   const span = Math.max(differenceInDays(new Date(), dates[0]), 1);
   return getTotalSpending(expenses) / span;
 }

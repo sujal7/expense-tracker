@@ -71,7 +71,7 @@ npm run lint         # ESLint
 
 ```ts
 interface Expense {
-  id: string;          // nanoid-style unique ID
+  id: string;          // unique string ID (timestamp + random suffix)
   date: string;        // "YYYY-MM-DD"
   amount: number;      // in dollars (e.g. 12.50)
   category: Category;  // Food | Transportation | Entertainment | Shopping | Bills | Other

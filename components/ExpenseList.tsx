@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Expense, Category, FilterState, SortField, SortOrder } from "@/lib/types";
 import {
   formatCurrency,
@@ -32,6 +32,13 @@ export default function ExpenseList({
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const deleteTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (deleteTimerRef.current) clearTimeout(deleteTimerRef.current);
+    };
+  }, []);
 
   const filtered = useMemo(() => {
     let result = [...expenses];
@@ -87,9 +94,11 @@ export default function ExpenseList({
     if (deleteConfirm === id) {
       onDelete(id);
       setDeleteConfirm(null);
+      if (deleteTimerRef.current) clearTimeout(deleteTimerRef.current);
     } else {
+      if (deleteTimerRef.current) clearTimeout(deleteTimerRef.current);
       setDeleteConfirm(id);
-      setTimeout(() => setDeleteConfirm(null), 3000);
+      deleteTimerRef.current = setTimeout(() => setDeleteConfirm(null), 3000);
     }
   };
 

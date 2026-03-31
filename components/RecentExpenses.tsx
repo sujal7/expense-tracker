@@ -122,8 +122,8 @@ export default function RecentExpenses({
                 {formatCurrency(expense.amount)}
               </div>
 
-              {/* Actions (shown on hover) */}
-              <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              {/* Actions (shown on hover and focus) */}
+              <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
                 <button
                   onClick={() => onEdit(expense)}
                   className="p-1.5 rounded-lg text-xs transition-colors"
